@@ -1,8 +1,7 @@
 `default_nettype none
 
-// CPU serial register for the 40/5p/6p/70/A0 instructions: load a TX byte,
-// shift LSB first through data[0] (out) and data[15] (in), push data[15:8].
-// Action lanes have their own shifters.
+// Generic CPU-side serial register. Real-time regions use the independent
+// TX/RX shifters in action_lane; this block serves scalar VM instructions.
 module serial_shifter (
     input  wire        clk,
     input  wire        rst_n,
@@ -20,10 +19,8 @@ module serial_shifter (
   assign serial_out = data[0];
   assign parallel = data;
 
-  always @(posedge clk or negedge rst_n) begin
-    if (!rst_n)
-      data <= 16'b0;
-    else if (!enable || clear)
+  always @(posedge clk) begin
+    if (!rst_n || !enable || clear)
       data <= 16'b0;
     else if (load)
       data <= {8'b0, load_data};

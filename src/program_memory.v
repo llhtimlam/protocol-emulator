@@ -4,9 +4,9 @@
 
 `default_nettype none
 
-// Wraps the foundry 1024x8 single-port SRAM macro. Reads are synchronous:
-// read_data is valid after the clock edge that samples the request. BIST
-// inputs are tied off.
+// Wraps the foundry 1024-by-8 single-port SRAM macro.
+// Presents explicit read, write, and bit-mask controls.
+// Keeps BIST pins inactive until a test controller is added.
 module program_memory (
     input  wire       clk,
     input  wire       enable,

@@ -1,4 +1,4 @@
-"""Timestamp and event-stamp tests.
+"""Timestamp + event-stamp tests (Phase 3-4).
 
 Gate-level safe: host commands plus `uio_*` pins and status `0xA` only.
 """

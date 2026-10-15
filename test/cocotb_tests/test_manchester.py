@@ -1,4 +1,4 @@
-"""Manchester TX decode from pin timing alone."""
+"""Manchester TX decode (Phase 10): same core, pins + time only."""
 
 import cocotb
 from cocotb.triggers import RisingEdge

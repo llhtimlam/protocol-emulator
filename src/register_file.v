@@ -1,7 +1,8 @@
 `default_nettype none
 
-// CPU register file: eight 16-bit registers, two asynchronous read ports and
-// one write port.
+// Stores the engine's working values (8x16, additive growth from 4x16).
+// Supplies two read operands and one write port.
+// Holds protocol state without dedicated controllers.
 module register_file (
     input  wire        clk,
     input  wire        rst_n,
@@ -19,7 +20,7 @@ module register_file (
   assign read_data_a = registers[read_address_a];
   assign read_data_b = registers[read_address_b];
 
-  always @(posedge clk or negedge rst_n) begin
+  always @(posedge clk) begin
     if (!rst_n) begin
       for (index = 0; index < 8; index = index + 1)
         registers[index] <= 16'b0;
